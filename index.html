@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Softuu 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    color: white;
+    text-align: center;
+    overflow: hidden;
+}
+
+.page {
+    display: none;
+    padding: 30px;
+    margin-top: 50px;
+}
+
+.active {
+    display: block;
+}
+
+button {
+    padding: 12px 20px;
+    border-radius: 25px;
+    border: none;
+    background: white;
+    color: #ff4d6d;
+    font-size: 16px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+img {
+    width: 220px;
+    border-radius: 15px;
+    margin-top: 15px;
+}
+
+/* typing */
+.typing::after {
+    content: "|";
+    animation: blink 1s infinite;
+}
+@keyframes blink { 50% { opacity: 0; } }
+
+/* hearts */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    font-size: 20px;
+    animation: floatUp 5s linear infinite;
+}
+@keyframes floatUp {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
+</style>
+</head>
+
+<body>
+
+<audio id="music" loop>
+<source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PAGE 1 -->
+<div class="page active" id="p1">
+<h1>Hey Softuu 🫂🌸</h1>
+<p id="t1" class="typing"></p>
+<button onclick="nextPage(2)">Open Letter 💌</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+<p id="t2" class="typing"></p>
+<img src="1.jpg">
+<button onclick="nextPage(3)">Next ➡️</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+<p id="t3" class="typing"></p>
+<img src="2.jpg">
+<button onclick="nextPage(4)">Next ➡️</button>
+</div>
+
+<!-- PAGE 4 -->
+<div class="page" id="p4">
+<p id="t4" class="typing"></p>
+<img src="3.jpg">
+<button onclick="nextPage(5)">Next ➡️</button>
+</div>
+
+<!-- FINAL PAGE -->
+<div class="page" id="p5">
+<h2>I really like you ❤️</h2>
+<p>Tum ho to sab better lagta hai… stay the same always 🌸</p>
+</div>
+
+<script>
+
+let texts = {
+t1: "Aaj ka din special hai... kyunki tum ho 😊❤️",
+t2: "Sach bolu... tumhari smile sabse dangerous hai 😌💖 (seedha dil pe lagti hai)",
+t3: "Tumhari vibe hi alag hai... simple ho par special ho ❤️",
+t4: "Aur ek baat... tum meri life ka best part ban chuki ho 💫"
+};
+
+// typing function
+function typeText(id, text){
+    let i=0;
+    let el=document.getElementById(id);
+    el.innerHTML="";
+    function typing(){
+        if(i<text.length){
+            el.innerHTML+=text.charAt(i);
+            i++;
+            setTimeout(typing,40);
+        }
+    }
+    typing();
+}
+
+// page switch
+function nextPage(n){
+    document.getElementById("music").play();
+
+    let pages=document.querySelectorAll(".page");
+    pages.forEach(p=>p.classList.remove("active"));
+
+    document.getElementById("p"+n).classList.add("active");
+
+    let tid="t"+n;
+    if(texts[tid]){
+        typeText(tid,texts[tid]);
+    }
+}
+
+// first page typing
+typeText("t1",texts.t1);
+
+// hearts
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerText="❤️";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(Math.random()*20+10)+"px";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),5000);
+},400);
+
+</script>
+
+</body>
+</html>
